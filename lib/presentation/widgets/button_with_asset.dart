@@ -11,6 +11,7 @@ class ButtonWithAsset extends StatelessWidget {
   final Color backgroundColor;
   final BorderSide borderSide;
   final Color textColor;
+  final double borderRadius;
 
   const ButtonWithAsset({
     super.key,
@@ -24,13 +25,14 @@ class ButtonWithAsset extends StatelessWidget {
       style: BorderStyle.none,
     ),
     this.textColor = Colors.white,
+    this.borderRadius = 17,
   });
 
   @override
   Widget build(BuildContext context) {
     return PhysicalModel(
       color: Colors.transparent,
-      borderRadius: BorderRadius.circular(17),
+      borderRadius: BorderRadius.circular(borderRadius),
       elevation: showShadow ? 8 : 0,
       shadowColor: showShadow ? Colors.black : Colors.transparent,
       child: ElevatedButton(
@@ -40,21 +42,23 @@ class ButtonWithAsset extends StatelessWidget {
           minimumSize: const Size(150, 50),
           shape: RoundedRectangleBorder(
             side: borderSide,
-            borderRadius: BorderRadius.circular(17),
+            borderRadius: BorderRadius.circular(borderRadius),
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(iconAsset),
-            const SizedBox(width: 8),
-            Text(
-              buttonText,
-              style: buttonStyle.copyWith(
-                color: textColor,
+        child: SizedBox(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(iconAsset),
+              const SizedBox(width: 8),
+              Text(
+                buttonText,
+                style: StyleConstant.buttonStyle.copyWith(
+                  color: textColor,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

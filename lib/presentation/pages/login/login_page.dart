@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pretest/presentation/constants/color_constant.dart';
 import 'package:pretest/presentation/constants/size_constant.dart';
 import 'package:pretest/presentation/constants/style_constant.dart';
+import 'package:pretest/presentation/pages/home/home_page.dart';
 import 'package:pretest/presentation/pages/login/signup_page.dart';
 import 'package:pretest/presentation/widgets/horizontal_divider_with_text.dart';
 import 'package:pretest/presentation/widgets/rounded_input_text.dart';
@@ -22,17 +23,17 @@ class LoginPage extends StatelessWidget {
           child: Container(
             height: MediaQuery.of(context).size.height,
             constraints: screenHeightConstraint,
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            padding: screenPadding,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const Text(
+                Text(
                   'Masuk',
-                  style: titleStyle,
+                  style: StyleConstant.titleStyle,
                 ),
-                const Text(
+                Text(
                   'Halo kamu, lama ga ketemu yaa, gimana kabarmu sekarang?',
-                  style: bodyBoldStyle,
+                  style: StyleConstant.bodyBoldStyle,
                   textAlign: TextAlign.center,
                 ),
                 const RoundedInputText(hintText: 'Email'),
@@ -41,11 +42,11 @@ class LoginPage extends StatelessWidget {
                   alignment: Alignment.centerRight,
                   child: Text(
                     'Lupa password?',
-                    style: bodyBoldStyle.copyWith(color: lightBlue),
+                    style: StyleConstant.bodyBoldStyle.copyWith(color: lightBlue),
                   ),
                 ),
                 RoundedRectangleButton(
-                  onPressed: () {},
+                  onPressed: () => Navigator.of(context).pushReplacementNamed(HomePage.routeName),
                   label: 'Masuk',
                   backgroundColor: blue,
                 ),
@@ -76,7 +77,7 @@ class LoginPage extends StatelessWidget {
                       onPressed: () => Navigator.of(context).pushNamed(SignupPage.routeName),
                       child: const Text(
                         'Daftar',
-                        style: textButtonStyle,
+                        style: StyleConstant.textButtonStyle,
                       ),
                     ),
                   ],

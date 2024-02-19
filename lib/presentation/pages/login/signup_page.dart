@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pretest/presentation/constants/size_constant.dart';
+import 'package:pretest/presentation/pages/login/login_page.dart';
 import 'package:pretest/presentation/widgets/button_with_asset.dart';
 
 import '../../constants/color_constant.dart';
@@ -21,17 +22,17 @@ class SignupPage extends StatelessWidget {
           child: Container(
             height: MediaQuery.of(context).size.height,
             constraints: screenHeightConstraint,
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            padding: screenPadding,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                const Text(
+                Text(
                   'Daftar',
-                  style: titleStyle,
+                  style: StyleConstant.titleStyle,
                 ),
-                const Text(
+                Text(
                   'Yuk daftar dulu disini, biar bisa nyobain fitur-fitur kami!',
-                  style: bodyBoldStyle,
+                  style: StyleConstant.bodyBoldStyle,
                   textAlign: TextAlign.center,
                 ),
                 const RoundedInputText(hintText: 'Email'),
@@ -42,11 +43,16 @@ class SignupPage extends StatelessWidget {
                   label: 'Daftar',
                   backgroundColor: blue,
                 ),
-                const Align(
+                Align(
                   alignment: Alignment.centerRight,
-                  child: Text(
-                    'Sudah punya akun?',
-                    style: textButtonStyle,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
+                    },
+                    child: const Text(
+                      'Sudah punya akun? Masuk',
+                      style: StyleConstant.textButtonStyle,
+                    ),
                   ),
                 ),
                 const HorizontalDividerWithText(text: 'atau'),
