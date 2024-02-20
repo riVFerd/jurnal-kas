@@ -7,12 +7,12 @@ import '../../constants/color_constant.dart';
 import '../../widgets/button_with_asset.dart';
 import '../../widgets/rounded_divider.dart';
 
-class DetailDompetPage extends StatelessWidget {
+class DompetDetailPage extends StatelessWidget {
   final Dompet dompet;
 
-  const DetailDompetPage({super.key, required this.dompet});
+  const DompetDetailPage({super.key, required this.dompet});
 
-  static const routeName = '/detail-dompet';
+  static const routeName = '/dompet-detail';
 
   @override
   Widget build(BuildContext context) {

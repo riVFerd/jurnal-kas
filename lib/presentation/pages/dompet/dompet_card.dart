@@ -41,7 +41,10 @@ class DompetCard extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset(dompet.iconPath),
+                Image.asset(
+                  dompet.iconPath,
+                  width: 48,
+                ),
                 const Gap(24),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

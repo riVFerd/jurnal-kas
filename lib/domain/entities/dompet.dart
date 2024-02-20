@@ -12,4 +12,26 @@ abstract class Dompet {
   });
 
   Map<String, dynamic> toJson();
+
+  static String icons(DompetIcon icon) {
+    switch (icon) {
+      case DompetIcon.wallet:
+        return 'assets/icons/wallet.png';
+      case DompetIcon.shopeePay:
+        return 'assets/icons/shopee_pay.png';
+      case DompetIcon.bca:
+        return 'assets/icons/bca.png';
+      case DompetIcon.mandiri:
+        return 'assets/icons/mandiri.png';
+      default:
+        return 'assets/icons/wallet.png';
+    }
+  }
+}
+
+enum DompetIcon {
+  wallet,
+  shopeePay,
+  bca,
+  mandiri,
 }

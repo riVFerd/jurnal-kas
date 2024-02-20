@@ -8,6 +8,7 @@ import '../../bloc/dompet/dompet_cubit.dart';
 import '../../constants/color_constant.dart';
 import '../../widgets/button_with_asset.dart';
 import '../../widgets/rounded_divider.dart';
+import 'add_dompet_modal.dart';
 import 'dompet_card.dart';
 
 class DompetPage extends StatelessWidget {
@@ -96,7 +97,15 @@ class DompetPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         elevation: 8,
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            isScrollControlled: true,
+            builder: (context) {
+              return const AddDompetModal();
+            },
+          );
+        },
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),
@@ -129,7 +138,7 @@ class DompetPage extends StatelessWidget {
       LineChartData(
         borderData: FlBorderData(show: false),
         titlesData: const FlTitlesData(show: false),
-        gridData: FlGridData(show: false),
+        gridData: const FlGridData(show: false),
         minX: 0,
         minY: 0,
         maxY: 10,

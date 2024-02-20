@@ -39,4 +39,21 @@ class StyleConstant {
     decorationThickness: 2,
     color: lighterBlue,
   );
+
+  static final underlinInputDecoration = InputDecoration(
+    enabledBorder: const UnderlineInputBorder(
+      borderSide: BorderSide(
+        color: Colors.grey,
+      ),
+    ),
+    labelStyle: StyleConstant.bodyStyle.copyWith(
+      color: blue,
+      fontWeight: FontWeight.w700,
+    ),
+    focusedBorder: const UnderlineInputBorder(
+      borderSide: BorderSide(
+        color: blue,
+      ),
+    ),
+  );
 }
