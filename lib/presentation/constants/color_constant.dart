@@ -7,3 +7,5 @@ const lightBlue = Color(0xFF1F41BB);
 const lighterBlue = Color(0xFF69AFF0);
 const darkYellow = Color(0xFFFFC300);
 const yellow = Color(0xFFFFD60A);
+const green = Color(0xFF37A21C);
+const grey = Color(0xFF6B6B6B);

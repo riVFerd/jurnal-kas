@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:pretest/presentation/constants/size_constant.dart';
 import 'package:pretest/presentation/widgets/button_with_asset.dart';
+import 'package:pretest/presentation/widgets/card_button.dart';
 
 import '../../constants/color_constant.dart';
+import '../../widgets/rounded_divider.dart';
+import '../dompet/dompet_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -19,13 +22,11 @@ class HomePage extends StatelessWidget {
             padding: screenPadding,
             child: Column(
               children: [
-                Container(
+                const RoundedDivider(
                   width: 64,
                   height: 4,
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(24),
-                  ),
+                  color: Colors.grey,
+                  borderRadius: 24,
                 ),
                 const Gap(24),
                 Row(
@@ -49,29 +50,10 @@ class HomePage extends StatelessWidget {
                   children: List.generate(
                     listMenu.length,
                     (index) {
-                      return PhysicalModel(
-                        color: Colors.transparent,
-                        elevation: 1,
-                        borderRadius: BorderRadius.circular(17),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width / 3 - 16,
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(17),
-                          ),
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                listMenu[index]['icon'] ?? 'assets/icons/profile.png',
-                              ),
-                              const Gap(8),
-                              Text(
-                                listMenu[index]['title'] ?? 'Profile',
-                              )
-                            ],
-                          ),
-                        ),
+                      return CardButton(
+                        icon: listMenu[index].icon,
+                        title: listMenu[index].title,
+                        onTap: () => listMenu[index].callback(context),
                       );
                     },
                   ),
@@ -105,41 +87,62 @@ class HomePage extends StatelessWidget {
   }
 }
 
-const listMenu = [
-  {
-    'icon': 'assets/icons/profile.png',
-    'title': 'Profile',
-  },
-  {
-    'icon': 'assets/icons/book.png',
-    'title': 'Buku',
-  },
-  {
-    'icon': 'assets/icons/wallet.png',
-    'title': 'Dompet',
-  },
-  {
-    'icon': 'assets/icons/search.png',
-    'title': 'Cari',
-  },
-  {
-    'title': 'Pengingat',
-    'icon': 'assets/icons/reminder.png',
-  },
-  {
-    'title': 'Kategori',
-    'icon': 'assets/icons/category.png',
-  },
-  {
-    'title': 'Tentang',
-    'icon': 'assets/icons/about.png',
-  },
-  {
-    'title': 'Google Drive',
-    'icon': 'assets/icons/google-drive.png',
-  },
-  {
-    'title': 'Premium',
-    'icon': 'assets/icons/premium.png',
-  }
+class _Menu {
+  final String icon;
+  final String title;
+  final Function(BuildContext) callback;
+
+  _Menu({
+    required this.icon,
+    required this.title,
+    required this.callback,
+  });
+}
+
+final listMenu = [
+  _Menu(
+    icon: 'assets/icons/profile.png',
+    title: 'Profile',
+    callback: (_) {},
+  ),
+  _Menu(
+    icon: 'assets/icons/book.png',
+    title: 'Buku',
+    callback: (_) {},
+  ),
+  _Menu(
+    icon: 'assets/icons/wallet.png',
+    title: 'Dompet',
+    callback: (BuildContext context) => Navigator.of(context).pushNamed(DompetPage.routeName),
+  ),
+  _Menu(
+    icon: 'assets/icons/search.png',
+    title: 'Cari',
+    callback: (_) {},
+  ),
+  _Menu(
+    icon: 'assets/icons/reminder.png',
+    title: 'Pengingat',
+    callback: (_) {},
+  ),
+  _Menu(
+    icon: 'assets/icons/category.png',
+    title: 'Kategori',
+    callback: (_) {},
+  ),
+  _Menu(
+    icon: 'assets/icons/about.png',
+    title: 'Tentang',
+    callback: (_) {},
+  ),
+  _Menu(
+    icon: 'assets/icons/google-drive.png',
+    title: 'Google Drive',
+    callback: (_) {},
+  ),
+  _Menu(
+    icon: 'assets/icons/premium.png',
+    title: 'Premium',
+    callback: (_) {},
+  ),
 ];

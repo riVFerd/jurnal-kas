@@ -22,9 +22,9 @@ class HorizontalDividerWithText extends StatelessWidget {
             color: color,
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text('atau'),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(text),
         ),
         Flexible(
           child: Container(

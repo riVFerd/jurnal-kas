@@ -16,8 +16,14 @@ class StyleConstant {
   );
 
   static final bodyBoldStyle = GoogleFonts.poppins(
-    fontSize: 15,
+    fontSize: 14,
     fontWeight: FontWeight.bold,
+    color: Colors.black,
+  );
+
+  static final bodyStyle = GoogleFonts.raleway(
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
     color: Colors.black,
   );
 
