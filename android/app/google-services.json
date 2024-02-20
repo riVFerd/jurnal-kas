@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "726336261583",
+    "project_id": "pretest-otak-kanan",
+    "storage_bucket": "pretest-otak-kanan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:726336261583:android:e6a732644f902b25b016ba",
+        "android_client_info": {
+          "package_name": "com.otakkanan.pretest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCMEadvycLbc_fnTShx4_M-7CF6gdc4XNA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

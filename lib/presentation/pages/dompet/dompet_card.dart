@@ -3,7 +3,7 @@ import 'package:gap/gap.dart';
 import 'package:pretest/presentation/pages/dompet/detail_dompet_page.dart';
 
 import '../../../common/format_decimal.dart';
-import '../../../logic/models/dompet.dart';
+import '../../../domain/entities/dompet.dart';
 import '../../constants/color_constant.dart';
 import '../../constants/style_constant.dart';
 

@@ -1,0 +1,22 @@
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+
+import '../../../domain/entities/dompet.dart';
+import '../../../domain/repositories/dompet_repository.dart';
+
+part 'dompet_state.dart';
+
+class DompetCubit extends Cubit<DompetState> {
+  final DompetRepository _dompetRepository;
+  DompetCubit(this._dompetRepository) : super(DompetInitial());
+
+  void getDompetList() async {
+    final dompetList = await _dompetRepository.getDompetList();
+    emit(DompetLoaded(dompetList));
+  }
+
+  void createDompet(Dompet dompet) async {
+    await _dompetRepository.createDompet(dompet);
+    getDompetList();
+  }
+}

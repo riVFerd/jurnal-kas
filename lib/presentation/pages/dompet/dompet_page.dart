@@ -1,25 +1,20 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:pretest/presentation/widgets/horizontal_divider_with_text.dart';
 
-import '../../../logic/models/dompet.dart';
-import '../../../logic/statics/dompet_static.dart';
+import '../../bloc/dompet/dompet_cubit.dart';
 import '../../constants/color_constant.dart';
 import '../../widgets/button_with_asset.dart';
 import '../../widgets/rounded_divider.dart';
 import 'dompet_card.dart';
 
-class DompetPage extends StatefulWidget {
+class DompetPage extends StatelessWidget {
   const DompetPage({super.key});
 
   static const routeName = '/dompet';
 
-  @override
-  State<DompetPage> createState() => _DompetPageState();
-}
-
-class _DompetPageState extends State<DompetPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,13 +66,26 @@ class _DompetPageState extends State<DompetPage> {
                   constraints: BoxConstraints(
                     maxHeight: MediaQuery.of(context).size.height / 2,
                   ),
-                  child: ListView.builder(
-                    itemCount: DompetStatic.listDompet.length,
-                    itemBuilder: (context, index) {
-                      return DompetCard(
-                        width: MediaQuery.of(context).size.width - 16,
-                        dompet: DompetStatic.listDompet[index],
-                      );
+                  child: BlocBuilder<DompetCubit, DompetState>(
+                    builder: (context, state) {
+                      switch (state) {
+                        case DompetLoaded _:
+                          final dompetList = state.dompetList;
+                          return ListView.builder(
+                            itemCount: dompetList.length,
+                            itemBuilder: (context, index) {
+                              return DompetCard(
+                                width: MediaQuery.of(context).size.width - 16,
+                                dompet: dompetList[index],
+                              );
+                            },
+                          );
+                        case DompetInitial():
+                          BlocProvider.of<DompetCubit>(context).getDompetList();
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                      }
                     },
                   ),
                 ),
@@ -88,16 +96,7 @@ class _DompetPageState extends State<DompetPage> {
       ),
       floatingActionButton: FloatingActionButton(
         elevation: 8,
-        onPressed: () {
-          DompetStatic.listDompet.add(
-            const Dompet(
-              name: 'BNI',
-              iconPath: 'assets/icons/bni.png',
-              saldo: 5000000,
-            ),
-          );
-          setState(() {});
-        },
+        onPressed: () {},
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50),

@@ -5,7 +5,7 @@ import 'package:pretest/presentation/pages/home/home_page.dart';
 import 'package:pretest/presentation/pages/login/login_page.dart';
 import 'package:pretest/presentation/pages/login/signup_page.dart';
 
-import '../../logic/models/dompet.dart';
+import '../../domain/entities/dompet.dart';
 
 class AppRouter {
   static PageRoute onGenerateRoute(RouteSettings settings) {
@@ -21,9 +21,10 @@ class AppRouter {
       case DetailDompetPage.routeName:
         final dompet = settings.arguments as Dompet;
         return MaterialPageRoute(
-            builder: (_) => DetailDompetPage(
-                  dompet: dompet,
-                ));
+          builder: (_) => DetailDompetPage(
+            dompet: dompet,
+          ),
+        );
       case '/':
         return MaterialPageRoute(builder: (_) => const LoginPage());
       default:
