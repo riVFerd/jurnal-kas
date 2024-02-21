@@ -5,6 +5,7 @@ class CategoryModel extends Category {
     required super.id,
     required super.name,
     required super.iconPath,
+    required super.description,
   });
 
   @override
@@ -13,6 +14,7 @@ class CategoryModel extends Category {
       'id': id,
       'iconPath': iconPath,
       'name': name,
+      'description': description,
     };
   }
 
@@ -21,6 +23,7 @@ class CategoryModel extends Category {
       id: json['id'],
       iconPath: json['iconPath'],
       name: json['name'],
+      description: json['description'],
     );
   }
 }

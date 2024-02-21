@@ -12,6 +12,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
       id: document.id,
       iconPath: category.iconPath,
       name: category.name,
+      description: category.description,
     );
     document.set(categoryModel.toJson());
     return Future.value(categoryModel);

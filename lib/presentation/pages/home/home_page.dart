@@ -6,6 +6,7 @@ import 'package:pretest/presentation/widgets/card_button.dart';
 
 import '../../constants/color_constant.dart';
 import '../../widgets/rounded_divider.dart';
+import '../category/category_page.dart';
 import '../dompet/dompet_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -113,7 +114,7 @@ final listMenu = [
   _Menu(
     icon: 'assets/icons/wallet.png',
     title: 'Dompet',
-    callback: (BuildContext context) => Navigator.of(context).pushNamed(DompetPage.routeName),
+    callback: (context) => Navigator.of(context).pushNamed(DompetPage.routeName),
   ),
   _Menu(
     icon: 'assets/icons/search.png',
@@ -128,7 +129,7 @@ final listMenu = [
   _Menu(
     icon: 'assets/icons/category.png',
     title: 'Kategori',
-    callback: (_) {},
+    callback: (context) => Navigator.of(context).pushNamed(CategoryPage.routeName),
   ),
   _Menu(
     icon: 'assets/icons/about.png',

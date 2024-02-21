@@ -34,10 +34,10 @@ class CardButton extends StatelessWidget {
           splashColor: splashColor,
           child: Container(
             width: MediaQuery.of(context).size.width / 3 - 16,
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(16),
             child: Column(
               children: [
-                Image.asset(icon),
+                Image.asset(icon, width: 48, height: 48),
                 const SizedBox(height: 8),
                 Text(title),
               ],

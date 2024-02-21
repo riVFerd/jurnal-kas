@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:pretest/presentation/pages/dompet/detail_dompet_page.dart';
+import 'package:pretest/presentation/pages/category/category_detail_page.dart';
+import 'package:pretest/presentation/pages/category/category_page.dart';
+import 'package:pretest/presentation/pages/dompet/dompet_detail_page.dart';
 import 'package:pretest/presentation/pages/dompet/dompet_page.dart';
 import 'package:pretest/presentation/pages/home/home_page.dart';
 import 'package:pretest/presentation/pages/login/login_page.dart';
 import 'package:pretest/presentation/pages/login/signup_page.dart';
 
+import '../../domain/entities/category.dart';
 import '../../domain/entities/dompet.dart';
 
 class AppRouter {
@@ -18,13 +21,21 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const HomePage());
       case DompetPage.routeName:
         return MaterialPageRoute(builder: (_) => const DompetPage());
-      case DetailDompetPage.routeName:
+      case DompetDetailPage.routeName:
         final dompet = settings.arguments as Dompet;
         return MaterialPageRoute(
-          builder: (_) => DetailDompetPage(
+          builder: (_) => DompetDetailPage(
             dompet: dompet,
           ),
         );
+      case CategoryPage.routeName:
+        return MaterialPageRoute(builder: (_) => const CategoryPage());
+      case CategoryDetailPage.routeName:
+        final category = settings.arguments as Category;
+        return MaterialPageRoute(
+            builder: (_) => CategoryDetailPage(
+                  category: category,
+                ));
       case '/':
         return MaterialPageRoute(builder: (_) => const LoginPage());
       default:

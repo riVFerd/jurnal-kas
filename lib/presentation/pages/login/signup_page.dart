@@ -66,7 +66,7 @@ class SignupPage extends StatelessWidget {
                     color: Colors.black,
                     width: 2,
                   ),
-                  textColor: Colors.black,
+                  color: Colors.black,
                 ),
               ],
             ),

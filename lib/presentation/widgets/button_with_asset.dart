@@ -10,7 +10,7 @@ class ButtonWithAsset extends StatelessWidget {
   final bool showShadow;
   final Color backgroundColor;
   final BorderSide borderSide;
-  final Color textColor;
+  final Color color;
   final double borderRadius;
 
   const ButtonWithAsset({
@@ -24,7 +24,7 @@ class ButtonWithAsset extends StatelessWidget {
       width: 0,
       style: BorderStyle.none,
     ),
-    this.textColor = Colors.white,
+    this.color = Colors.white,
     this.borderRadius = 17,
   });
 
@@ -49,12 +49,15 @@ class ButtonWithAsset extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset(iconAsset),
+              Image.asset(
+                iconAsset,
+                color: color,
+              ),
               const SizedBox(width: 8),
               Text(
                 buttonText,
                 style: StyleConstant.buttonStyle.copyWith(
-                  color: textColor,
+                  color: color,
                 ),
               ),
             ],

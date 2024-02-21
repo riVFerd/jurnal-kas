@@ -17,7 +17,7 @@ class StyleConstant {
 
   static final bodyBoldStyle = GoogleFonts.poppins(
     fontSize: 14,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w700,
     color: Colors.black,
   );
 

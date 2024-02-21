@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:pretest/presentation/pages/dompet/detail_dompet_page.dart';
+import 'package:pretest/presentation/pages/dompet/dompet_detail_page.dart';
 
 import '../../../common/format_decimal.dart';
 import '../../../domain/entities/dompet.dart';
@@ -26,7 +26,7 @@ class DompetCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         child: InkWell(
           onTap: () {
-            Navigator.of(context).pushNamed(DetailDompetPage.routeName, arguments: dompet);
+            Navigator.of(context).pushNamed(DompetDetailPage.routeName, arguments: dompet);
           },
           child: Container(
             width: width,
