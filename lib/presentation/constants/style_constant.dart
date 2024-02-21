@@ -27,6 +27,12 @@ class StyleConstant {
     color: Colors.black,
   );
 
+  static final bodyPoppinsStyle = GoogleFonts.poppins(
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
+    color: Colors.black,
+  );
+
   static const buttonStyle = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.bold,

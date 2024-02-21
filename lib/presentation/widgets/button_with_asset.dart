@@ -10,7 +10,7 @@ class ButtonWithAsset extends StatelessWidget {
   final bool showShadow;
   final Color backgroundColor;
   final BorderSide borderSide;
-  final Color color;
+  final Color? color;
   final double borderRadius;
 
   const ButtonWithAsset({
@@ -24,7 +24,7 @@ class ButtonWithAsset extends StatelessWidget {
       width: 0,
       style: BorderStyle.none,
     ),
-    this.color = Colors.white,
+    this.color,
     this.borderRadius = 17,
   });
 

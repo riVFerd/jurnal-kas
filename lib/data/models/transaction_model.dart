@@ -9,7 +9,6 @@ class TransactionModel extends Transaction {
     required super.amount,
     required super.date,
     required super.type,
-    required super.description,
   });
 
   @override
@@ -22,7 +21,6 @@ class TransactionModel extends Transaction {
       'amount': amount,
       'date': date.toIso8601String(),
       'type': type == TransactionType.income ? 'income' : 'expense',
-      'description': description,
     };
   }
 
@@ -35,7 +33,6 @@ class TransactionModel extends Transaction {
       amount: json['amount'],
       date: DateTime.parse(json['date']),
       type: json['type'] == 'income' ? TransactionType.income : TransactionType.expense,
-      description: json['description'],
     );
   }
 }

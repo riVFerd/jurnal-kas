@@ -6,6 +6,7 @@ import 'package:pretest/presentation/pages/dompet/dompet_page.dart';
 import 'package:pretest/presentation/pages/home/home_page.dart';
 import 'package:pretest/presentation/pages/login/login_page.dart';
 import 'package:pretest/presentation/pages/login/signup_page.dart';
+import 'package:pretest/presentation/pages/transaction/add_transaction_page.dart';
 
 import '../../domain/entities/category.dart';
 import '../../domain/entities/dompet.dart';
@@ -33,9 +34,12 @@ class AppRouter {
       case CategoryDetailPage.routeName:
         final category = settings.arguments as Category;
         return MaterialPageRoute(
-            builder: (_) => CategoryDetailPage(
-                  category: category,
-                ));
+          builder: (_) => CategoryDetailPage(
+            category: category,
+          ),
+        );
+      case AddTransactionPage.routeName:
+        return MaterialPageRoute(builder: (_) => const AddTransactionPage());
       case '/':
         return MaterialPageRoute(builder: (_) => const LoginPage());
       default:

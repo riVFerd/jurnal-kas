@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pretest/presentation/constants/style_constant.dart';
 
 class CardButton extends StatelessWidget {
   final String icon;
@@ -7,6 +8,7 @@ class CardButton extends StatelessWidget {
   final double borderRadius;
   final Color backgroundColor;
   final Color? splashColor;
+  final double iconSize;
 
   const CardButton({
     super.key,
@@ -16,6 +18,7 @@ class CardButton extends StatelessWidget {
     this.borderRadius = 17.0,
     this.backgroundColor = Colors.white,
     this.splashColor,
+    this.iconSize = 48,
   });
 
   @override
@@ -33,13 +36,20 @@ class CardButton extends StatelessWidget {
           onTap: onTap,
           splashColor: splashColor,
           child: Container(
-            width: MediaQuery.of(context).size.width / 3 - 16,
-            padding: const EdgeInsets.all(16),
+            width: MediaQuery.of(context).size.width / 3 - 32,
+            height: 100,
+            padding: const EdgeInsets.all(8),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(icon, width: 48, height: 48),
+                Image.asset(icon, width: iconSize, height: iconSize),
                 const SizedBox(height: 8),
-                Text(title),
+                if (title != '')
+                  Text(
+                    title,
+                    style: StyleConstant.bodyStyle.copyWith(color: Colors.black, fontSize: 11),
+                    textAlign: TextAlign.center,
+                  ),
               ],
             ),
           ),

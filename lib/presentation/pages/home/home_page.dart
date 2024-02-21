@@ -5,6 +5,7 @@ import 'package:pretest/presentation/widgets/button_with_asset.dart';
 import 'package:pretest/presentation/widgets/card_button.dart';
 
 import '../../constants/color_constant.dart';
+import '../../widgets/bottom_navbar.dart';
 import '../../widgets/rounded_divider.dart';
 import '../category/category_page.dart';
 import '../dompet/dompet_page.dart';
@@ -45,8 +46,8 @@ class HomePage extends StatelessWidget {
                 ),
                 const Gap(64),
                 Wrap(
-                  spacing: 13.0,
-                  runSpacing: 13.0,
+                  spacing: 24.0,
+                  runSpacing: 24.0,
                   alignment: WrapAlignment.center,
                   children: List.generate(
                     listMenu.length,
@@ -64,26 +65,7 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Image.asset('assets/icons/navbar/wallet_active.png'),
-            label: 'Dompet',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset('assets/icons/navbar/home.png'),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset('assets/icons/navbar/analytic.png'),
-            label: 'Analitik',
-          ),
-        ],
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        selectedItemColor: blue,
-        unselectedItemColor: Colors.grey,
-      ),
+      bottomNavigationBar: const BottomNavbar(),
     );
   }
 }

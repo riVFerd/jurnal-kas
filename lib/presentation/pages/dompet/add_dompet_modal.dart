@@ -83,36 +83,39 @@ class _AddDompetModalState extends State<AddDompetModal> {
               keyboardType: TextInputType.number,
             ),
             const Gap(24),
-            SizedBox(
-              height: 48,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: DompetIcon.values.length,
-                shrinkWrap: true,
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: ElevatedButton(
-                      onPressed: () => setState(() {
-                        selectedIcon = DompetIcon.values[index];
-                        selectedIconIndex = index;
-                      }),
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+            Scrollbar(
+              child: Container(
+                margin: const EdgeInsets.symmetric(vertical: 8),
+                height: 48,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: DompetIcon.values.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: ElevatedButton(
+                        onPressed: () => setState(() {
+                          selectedIcon = DompetIcon.values[index];
+                          selectedIconIndex = index;
+                        }),
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          backgroundColor: selectedIconIndex == index ? yellow : Colors.transparent,
+                          minimumSize: Size.zero,
+                          padding: const EdgeInsets.all(10),
                         ),
-                        backgroundColor: selectedIconIndex == index ? yellow : Colors.transparent,
-                        minimumSize: Size.zero,
-                        padding: const EdgeInsets.all(10),
+                        child: Image.asset(
+                          Dompet.icons(DompetIcon.values[index]),
+                          width: 32,
+                          height: 32,
+                        ),
                       ),
-                      child: Image.asset(
-                        Dompet.icons(DompetIcon.values[index]),
-                        width: 32,
-                        height: 32,
-                      ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             ),
             const Gap(24),

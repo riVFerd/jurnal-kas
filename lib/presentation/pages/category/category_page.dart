@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:pretest/presentation/constants/style_constant.dart';
 import 'package:pretest/presentation/pages/category/category_detail_page.dart';
+import 'package:pretest/presentation/widgets/bottom_navbar.dart';
 
 import '../../bloc/category/category_cubit.dart';
 import '../../constants/color_constant.dart';
@@ -61,8 +62,8 @@ class CategoryPage extends StatelessWidget {
                       case CategoryLoaded _:
                         final categoryList = state.categoryList;
                         return Wrap(
-                          spacing: 13.0,
-                          runSpacing: 13.0,
+                          spacing: 24.0,
+                          runSpacing: 24.0,
                           alignment: WrapAlignment.center,
                           children: List.generate(
                             categoryList.length + 1,
@@ -70,6 +71,7 @@ class CategoryPage extends StatelessWidget {
                               if (index == categoryList.length) {
                                 return CardButton(
                                   icon: 'assets/icons/add.png',
+                                  iconSize: 32,
                                   title: '',
                                   onTap: () {
                                     showModalBottomSheet(
@@ -104,26 +106,7 @@ class CategoryPage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Image.asset('assets/icons/navbar/wallet_active.png'),
-            label: 'Dompet',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset('assets/icons/navbar/home.png'),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset('assets/icons/navbar/analytic.png'),
-            label: 'Analitik',
-          ),
-        ],
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        selectedItemColor: blue,
-        unselectedItemColor: Colors.grey,
-      ),
+      bottomNavigationBar: const BottomNavbar(),
     );
   }
 }

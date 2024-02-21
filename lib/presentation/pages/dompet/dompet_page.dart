@@ -2,6 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:pretest/presentation/widgets/bottom_navbar.dart';
 import 'package:pretest/presentation/widgets/horizontal_divider_with_text.dart';
 
 import '../../bloc/dompet/dompet_cubit.dart';
@@ -112,24 +113,7 @@ class DompetPage extends StatelessWidget {
         ),
         child: const Icon(Icons.add),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Image.asset('assets/icons/navbar/wallet_active.png'),
-            label: 'Dompet',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset('assets/icons/navbar/home.png'),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Image.asset('assets/icons/navbar/analytic.png'),
-            label: 'Analitik',
-          ),
-        ],
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-      ),
+      bottomNavigationBar: const BottomNavbar(),
     );
   }
 
