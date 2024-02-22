@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:pretest/common/datetime_extentions.dart';
 import 'package:pretest/presentation/constants/style_constant.dart';
 
 import '../../../domain/entities/dompet.dart';
@@ -101,25 +102,50 @@ class DompetDetailPage extends StatelessWidget {
                         final transactionList = state.transactionList.where((transaction) {
                           return transaction.dompetId == dompet.id;
                         }).toList();
+                        if (transactionList.isEmpty) {
+                          return const Center(
+                            child: Text('Tidak ada transaksi'),
+                          );
+                        }
+                        DateTime lastDate = transactionList.last.date;
                         return BlocBuilder<CategoryCubit, CategoryState>(
                           builder: (context, state) {
                             if (state is CategoryLoaded) {
                               final categoryList = state.categoryList;
-                              if (transactionList.isEmpty) {
-                                return const Center(
-                                  child: Text('Tidak ada transaksi'),
-                                );
-                              }
                               return ListView.builder(
                                 itemCount: transactionList.length,
                                 itemBuilder: (context, index) {
                                   final category = categoryList.firstWhere(
                                     (category) => category.id == transactionList[index].categoryId,
                                   );
-                                  return TransactionCard(
-                                    category: category,
-                                    transaction: transactionList[index],
-                                  );
+                                  if (lastDate.isSameDay(transactionList[index].date)) {
+                                    lastDate = transactionList[index].date;
+                                    return TransactionCard(
+                                      category: category,
+                                      transaction: transactionList[index],
+                                    );
+                                  } else {
+                                    lastDate = transactionList[index].date;
+                                    return Column(
+                                      children: [
+                                        const Gap(16),
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            transactionList[index].date.toFormattedString(),
+                                            style: StyleConstant.bodyPoppinsStyle.copyWith(
+                                              color: blue,
+                                            ),
+                                          ),
+                                        ),
+                                        const Gap(8),
+                                        TransactionCard(
+                                          category: category,
+                                          transaction: transactionList[index],
+                                        ),
+                                      ],
+                                    );
+                                  }
                                 },
                               );
                             } else {
