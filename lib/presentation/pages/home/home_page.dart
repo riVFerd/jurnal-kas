@@ -146,93 +146,108 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               padding: const EdgeInsets.all(16),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const RoundedDivider(
-                      width: 48,
-                      height: 4,
-                      color: Colors.grey,
-                      borderRadius: 24,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: TableCalendar(
-                        headerStyle: const HeaderStyle(
-                          formatButtonVisible: false,
-                          titleCentered: true,
+              child: Column(
+                children: [
+                  const RoundedDivider(
+                    width: 48,
+                    height: 4,
+                    color: Colors.grey,
+                    borderRadius: 24,
+                  ),
+                  Expanded(
+                    child: CustomScrollView(
+                      slivers: [
+                        SliverList(
+                          delegate: SliverChildListDelegate(
+                            [
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: TableCalendar(
+                                  rowHeight: 36,
+                                  headerStyle: const HeaderStyle(
+                                    formatButtonVisible: false,
+                                    titleCentered: true,
+                                  ),
+                                  firstDay: DateTime.utc(2010, 10, 16),
+                                  lastDay: DateTime.utc(2030, 3, 14),
+                                  focusedDay: _focusedDay,
+                                  selectedDayPredicate: (day) {
+                                    return isSameDay(_selectedDay, day);
+                                  },
+                                  onDaySelected: (selectedDay, focusedDay) {
+                                    setState(() {
+                                      _selectedDay = selectedDay;
+                                      _focusedDay = focusedDay;
+                                    });
+                                  },
+                                ),
+                              ),
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  _selectedDay.toFormattedString(),
+                                  style: StyleConstant.bodyBoldStyle.copyWith(
+                                    color: blue,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        firstDay: DateTime.utc(2010, 10, 16),
-                        lastDay: DateTime.utc(2030, 3, 14),
-                        focusedDay: _focusedDay,
-                        selectedDayPredicate: (day) {
-                          return isSameDay(_selectedDay, day);
-                        },
-                        onDaySelected: (selectedDay, focusedDay) {
-                          setState(() {
-                            _selectedDay = selectedDay;
-                            _focusedDay = focusedDay;
-                          });
-                        },
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        _selectedDay.toFormattedString(),
-                        style: StyleConstant.bodyBoldStyle.copyWith(
-                          color: blue,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      height: MediaQuery.of(context).size.height * 0.1,
-                      child: BlocBuilder<TransactionCubit, TransactionState>(
-                        builder: (context, state) {
-                          if (state is TransactionLoaded) {
-                            final transactionList = state.transactionList.where((transaction) {
-                              return transaction.date.isSameDay(_selectedDay);
-                            }).toList();
-                            print(transactionList);
-                            print(transactionList.length);
-                            if (transactionList.isEmpty) {
-                              return const Center(
-                                child: Text('Tidak ada transaksi'),
+                        BlocBuilder<TransactionCubit, TransactionState>(
+                          builder: (context, state) {
+                            if (state is TransactionLoaded) {
+                              final transactionList = state.transactionList.where((transaction) {
+                                return transaction.date.isSameDay(_selectedDay);
+                              }).toList();
+                              if (transactionList.isEmpty) {
+                                return SliverToBoxAdapter(
+                                  child: Container(
+                                    padding: const EdgeInsets.all(16),
+                                    alignment: Alignment.center,
+                                    child: const Text('Tidak ada transaksi'),
+                                  ),
+                                );
+                              }
+                              return BlocBuilder<CategoryCubit, CategoryState>(
+                                builder: (context, state) {
+                                  if (state is CategoryLoaded) {
+                                    final categoryList = state.categoryList;
+                                    return SliverList(
+                                      delegate: SliverChildBuilderDelegate(
+                                        (context, index) {
+                                          final category = categoryList.firstWhere(
+                                            (category) =>
+                                                category.id == transactionList[index].categoryId,
+                                          );
+                                          return TransactionCard(
+                                            category: category,
+                                            transaction: transactionList[index],
+                                          );
+                                        },
+                                        childCount: transactionList.length,
+                                      ),
+                                    );
+                                  } else {
+                                    BlocProvider.of<CategoryCubit>(context).getCategoryList();
+                                    return const SliverToBoxAdapter(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+                                },
+                              );
+                            } else {
+                              BlocProvider.of<TransactionCubit>(context).getTransactionList();
+                              return const SliverToBoxAdapter(
+                                child: CircularProgressIndicator(),
                               );
                             }
-                            return BlocBuilder<CategoryCubit, CategoryState>(
-                              builder: (context, state) {
-                                if (state is CategoryLoaded) {
-                                  final categoryList = state.categoryList;
-                                  return ListView.builder(
-                                    itemCount: transactionList.length,
-                                    itemBuilder: (context, index) {
-                                      final category = categoryList.firstWhere(
-                                        (category) =>
-                                            category.id == transactionList[index].categoryId,
-                                      );
-                                      return TransactionCard(
-                                        category: category,
-                                        transaction: transactionList[index],
-                                      );
-                                    },
-                                  );
-                                } else {
-                                  BlocProvider.of<CategoryCubit>(context).getCategoryList();
-                                  return const CircularProgressIndicator();
-                                }
-                              },
-                            );
-                          } else {
-                            BlocProvider.of<TransactionCubit>(context).getTransactionList();
-                            return const CircularProgressIndicator();
-                          }
-                        },
-                      ),
+                          },
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             )
           ],
