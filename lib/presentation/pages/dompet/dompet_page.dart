@@ -2,7 +2,6 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:pretest/presentation/widgets/bottom_navbar.dart';
 import 'package:pretest/presentation/widgets/horizontal_divider_with_text.dart';
 
 import '../../bloc/dompet/dompet_cubit.dart';
@@ -113,7 +112,6 @@ class DompetPage extends StatelessWidget {
         ),
         child: const Icon(Icons.add),
       ),
-      bottomNavigationBar: const BottomNavbar(),
     );
   }
 

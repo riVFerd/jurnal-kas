@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pretest/presentation/constants/color_constant.dart';
 import 'package:pretest/presentation/constants/size_constant.dart';
 import 'package:pretest/presentation/constants/style_constant.dart';
-import 'package:pretest/presentation/pages/home/home_page.dart';
+import 'package:pretest/presentation/pages/dashboard/dashboard_page.dart';
 import 'package:pretest/presentation/pages/login/signup_page.dart';
 import 'package:pretest/presentation/widgets/horizontal_divider_with_text.dart';
 import 'package:pretest/presentation/widgets/rounded_input_text.dart';
@@ -46,7 +46,8 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 RoundedRectangleButton(
-                  onPressed: () => Navigator.of(context).pushReplacementNamed(HomePage.routeName),
+                  onPressed: () =>
+                      Navigator.of(context).pushReplacementNamed(DashboardPage.routeName),
                   label: 'Masuk',
                   backgroundColor: blue,
                 ),

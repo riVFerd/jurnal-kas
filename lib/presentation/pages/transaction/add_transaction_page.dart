@@ -4,7 +4,6 @@ import 'package:gap/gap.dart';
 import 'package:pretest/common/datetime_extentions.dart';
 import 'package:pretest/domain/entities/dompet.dart';
 import 'package:pretest/presentation/constants/style_constant.dart';
-import 'package:pretest/presentation/widgets/bottom_navbar.dart';
 import 'package:pretest/presentation/widgets/numpad_widget.dart';
 
 import '../../../data/models/transaction_model.dart';
@@ -295,7 +294,6 @@ class _AddTransactionPageState extends State<AddTransactionPage>
           ),
         ),
       ),
-      bottomNavigationBar: const BottomNavbar(),
     );
   }
 

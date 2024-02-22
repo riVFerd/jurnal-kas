@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:pretest/presentation/constants/style_constant.dart';
-import 'package:pretest/presentation/widgets/bottom_navbar.dart';
 
 import '../../../domain/entities/dompet.dart';
 import '../../bloc/category/category_cubit.dart';
@@ -141,7 +140,6 @@ class DompetDetailPage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomNavbar(),
     );
   }
 

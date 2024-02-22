@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:pretest/presentation/pages/category/category_detail_page.dart';
 import 'package:pretest/presentation/pages/category/category_page.dart';
+import 'package:pretest/presentation/pages/dashboard/dashboard_page.dart';
 import 'package:pretest/presentation/pages/dompet/dompet_detail_page.dart';
 import 'package:pretest/presentation/pages/dompet/dompet_page.dart';
-import 'package:pretest/presentation/pages/home/home_page.dart';
 import 'package:pretest/presentation/pages/login/login_page.dart';
 import 'package:pretest/presentation/pages/login/signup_page.dart';
 import 'package:pretest/presentation/pages/transaction/add_transaction_page.dart';
@@ -18,8 +18,6 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const LoginPage());
       case SignupPage.routeName:
         return MaterialPageRoute(builder: (_) => const SignupPage());
-      case HomePage.routeName:
-        return MaterialPageRoute(builder: (_) => const HomePage());
       case DompetPage.routeName:
         return MaterialPageRoute(builder: (_) => const DompetPage());
       case DompetDetailPage.routeName:
@@ -40,6 +38,8 @@ class AppRouter {
         );
       case AddTransactionPage.routeName:
         return MaterialPageRoute(builder: (_) => const AddTransactionPage());
+      case DashboardPage.routeName:
+        return MaterialPageRoute(builder: (_) => const DashboardPage());
       case '/':
         return MaterialPageRoute(builder: (_) => const LoginPage());
       default:

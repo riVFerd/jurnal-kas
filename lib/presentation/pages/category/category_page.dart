@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:pretest/presentation/constants/style_constant.dart';
 import 'package:pretest/presentation/pages/category/category_detail_page.dart';
-import 'package:pretest/presentation/widgets/bottom_navbar.dart';
 
 import '../../bloc/category/category_cubit.dart';
 import '../../constants/color_constant.dart';
@@ -106,7 +105,6 @@ class CategoryPage extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomNavbar(),
     );
   }
 }
