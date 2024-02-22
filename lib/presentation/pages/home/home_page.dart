@@ -95,24 +95,29 @@ class _HomePageState extends State<HomePage> {
                                   fontSize: 16,
                                 ),
                               ),
-                              BlocBuilder<DompetCubit, DompetState>(
+                              BlocBuilder<TransactionCubit, TransactionState>(
                                 builder: (context, state) {
-                                  if (state is DompetLoaded) {
-                                    final total = state.dompetList.fold(
-                                      0.0,
-                                      (prev, element) => prev + element.saldo,
-                                    );
-                                    return Text(
-                                      'Rp ${FormatDecimal.format(total)}',
-                                      style: StyleConstant.titleStyle.copyWith(
-                                        color: Colors.white,
-                                        fontSize: 24,
-                                      ),
-                                    );
-                                  } else {
-                                    BlocProvider.of<DompetCubit>(context).getDompetList();
-                                    return const CircularProgressIndicator();
-                                  }
+                                  BlocProvider.of<DompetCubit>(context).getDompetList();
+                                  return BlocBuilder<DompetCubit, DompetState>(
+                                    builder: (context, state) {
+                                      if (state is DompetLoaded) {
+                                        final total = state.dompetList.fold(
+                                          0.0,
+                                          (prev, element) => prev + element.saldo,
+                                        );
+                                        return Text(
+                                          'Rp ${FormatDecimal.format(total)}',
+                                          style: StyleConstant.titleStyle.copyWith(
+                                            color: Colors.white,
+                                            fontSize: 24,
+                                          ),
+                                        );
+                                      } else {
+                                        BlocProvider.of<DompetCubit>(context).getDompetList();
+                                        return const CircularProgressIndicator();
+                                      }
+                                    },
+                                  );
                                 },
                               ),
                             ],
@@ -160,34 +165,28 @@ class _HomePageState extends State<HomePage> {
                         SliverList(
                           delegate: SliverChildListDelegate(
                             [
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: TableCalendar(
-                                  rowHeight: 36,
-                                  headerStyle: const HeaderStyle(
-                                    formatButtonVisible: false,
-                                    titleCentered: true,
-                                  ),
-                                  firstDay: DateTime.utc(2010, 10, 16),
-                                  lastDay: DateTime.utc(2030, 3, 14),
-                                  focusedDay: _focusedDay,
-                                  selectedDayPredicate: (day) {
-                                    return isSameDay(_selectedDay, day);
-                                  },
-                                  onDaySelected: (selectedDay, focusedDay) {
-                                    setState(() {
-                                      _selectedDay = selectedDay;
-                                      _focusedDay = focusedDay;
-                                    });
-                                  },
-                                ),
-                              ),
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  _selectedDay.toFormattedString(),
-                                  style: StyleConstant.bodyBoldStyle.copyWith(
-                                    color: blue,
+                              Visibility(
+                                visible: _isCalendarSelected,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: TableCalendar(
+                                    rowHeight: 36,
+                                    headerStyle: const HeaderStyle(
+                                      formatButtonVisible: false,
+                                      titleCentered: true,
+                                    ),
+                                    firstDay: DateTime.utc(2010, 10, 16),
+                                    lastDay: DateTime.utc(2030, 3, 14),
+                                    focusedDay: _focusedDay,
+                                    selectedDayPredicate: (day) {
+                                      return isSameDay(_selectedDay, day);
+                                    },
+                                    onDaySelected: (selectedDay, focusedDay) {
+                                      setState(() {
+                                        _selectedDay = selectedDay;
+                                        _focusedDay = focusedDay;
+                                      });
+                                    },
                                   ),
                                 ),
                               ),
@@ -198,7 +197,8 @@ class _HomePageState extends State<HomePage> {
                           builder: (context, state) {
                             if (state is TransactionLoaded) {
                               final transactionList = state.transactionList.where((transaction) {
-                                return transaction.date.isSameDay(_selectedDay);
+                                return transaction.date.isSameDay(_selectedDay) ||
+                                    !_isCalendarSelected;
                               }).toList();
                               if (transactionList.isEmpty) {
                                 return SliverToBoxAdapter(
@@ -213,6 +213,18 @@ class _HomePageState extends State<HomePage> {
                                 builder: (context, state) {
                                   if (state is CategoryLoaded) {
                                     final categoryList = state.categoryList;
+                                    List<bool> isShowDate = [];
+                                    transactionList.forEach((element) {
+                                      if (isShowDate.isEmpty) {
+                                        isShowDate.add(true);
+                                      } else {
+                                        isShowDate.add(
+                                          !element.date.isSameDay(
+                                              transactionList[isShowDate.length - 1].date),
+                                        );
+                                      }
+                                    });
+                                    final _today = DateTime.now();
                                     return SliverList(
                                       delegate: SliverChildBuilderDelegate(
                                         (context, index) {
@@ -220,10 +232,37 @@ class _HomePageState extends State<HomePage> {
                                             (category) =>
                                                 category.id == transactionList[index].categoryId,
                                           );
-                                          return TransactionCard(
-                                            category: category,
-                                            transaction: transactionList[index],
-                                          );
+                                          if (!isShowDate[index]) {
+                                            return TransactionCard(
+                                              category: category,
+                                              transaction: transactionList[index],
+                                            );
+                                          } else {
+                                            return Column(
+                                              children: [
+                                                const Gap(16),
+                                                Align(
+                                                  alignment: Alignment.centerLeft,
+                                                  child: Text(
+                                                    transactionList[index].date.isSameDay(_today)
+                                                        ? 'Hari ini'
+                                                        : transactionList[index]
+                                                            .date
+                                                            .toFormattedString(),
+                                                    style: StyleConstant.bodyPoppinsStyle.copyWith(
+                                                      color: blue,
+                                                      fontWeight: FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                ),
+                                                const Gap(4),
+                                                TransactionCard(
+                                                  category: category,
+                                                  transaction: transactionList[index],
+                                                ),
+                                              ],
+                                            );
+                                          }
                                         },
                                         childCount: transactionList.length,
                                       ),

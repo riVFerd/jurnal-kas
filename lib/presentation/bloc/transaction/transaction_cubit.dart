@@ -10,12 +10,12 @@ class TransactionCubit extends Cubit<TransactionState> {
   final TransactionRepository _transactionRepository;
   TransactionCubit(this._transactionRepository) : super(TransactionInitial());
 
-  void getTransactionList() async {
+  Future<void> getTransactionList() async {
     final transactionList = await _transactionRepository.getTransactionList();
     emit(TransactionLoaded(transactionList));
   }
 
-  void createTransaction(Transaction transaction) async {
+  Future<void> createTransaction(Transaction transaction) async {
     await _transactionRepository.createTransaction(transaction);
     getTransactionList();
   }

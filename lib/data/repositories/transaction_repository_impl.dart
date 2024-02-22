@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:pretest/domain/entities/transaction.dart';
 
 import '../../domain/repositories/transaction_repository.dart';
 import '../models/transaction_model.dart';
@@ -17,6 +18,18 @@ class TransactionRepositoryImpl implements TransactionRepository {
       type: transaction.type,
     );
     document.set(transactionModel.toJson());
+
+    // add or subtract the amount to the wallet
+    final walletDocument =
+        FirebaseFirestore.instance.collection('dompet').doc(transaction.dompetId);
+    walletDocument.get().then((value) {
+      final wallet = value.data();
+      if (transaction.type == TransactionType.income) {
+        walletDocument.update({'saldo': wallet!['saldo'] + transaction.amount});
+      } else {
+        walletDocument.update({'saldo': wallet!['saldo'] - transaction.amount});
+      }
+    });
     return Future.value(transactionModel);
   }
 
@@ -34,7 +47,11 @@ class TransactionRepositoryImpl implements TransactionRepository {
 
   @override
   Future<List<TransactionModel>> getTransactionList() {
-    return FirebaseFirestore.instance.collection('transaction').get().then(
+    return FirebaseFirestore.instance
+        .collection('transaction')
+        .orderBy('date', descending: true)
+        .get()
+        .then(
           (value) =>
               value.docs.map((e) => TransactionModel.fromJson(e.data())).toList(growable: false),
         );

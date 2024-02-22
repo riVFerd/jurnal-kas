@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:pretest/common/datetime_extentions.dart';
+import 'package:pretest/common/format_decimal.dart';
+import 'package:pretest/domain/entities/transaction.dart';
 import 'package:pretest/presentation/constants/style_constant.dart';
 
 import '../../../domain/entities/dompet.dart';
@@ -91,7 +93,22 @@ class DompetDetailPage extends StatelessWidget {
                   ],
                 ),
                 const Gap(24),
-                _incomeOutcome(),
+                BlocBuilder<TransactionCubit, TransactionState>(
+                  builder: (context, state) {
+                    if (state is TransactionLoaded) {
+                      final transactionList = state.transactionList.where((transaction) {
+                        return transaction.dompetId == dompet.id;
+                      }).toList();
+                      return _incomeOutcome(
+                        income: transactionList.totalIncome,
+                        outcome: transactionList.totalExpense,
+                        difference: transactionList.totalAmount,
+                      );
+                    } else {
+                      return _incomeOutcome();
+                    }
+                  },
+                ),
                 const Gap(24),
                 SizedBox(
                   width: double.infinity,
@@ -107,7 +124,9 @@ class DompetDetailPage extends StatelessWidget {
                             child: Text('Tidak ada transaksi'),
                           );
                         }
-                        DateTime lastDate = transactionList.last.date;
+                        DateTime lastDate = transactionList[0].date.subtract(
+                              const Duration(days: 1),
+                            );
                         return BlocBuilder<CategoryCubit, CategoryState>(
                           builder: (context, state) {
                             if (state is CategoryLoaded) {
@@ -169,7 +188,7 @@ class DompetDetailPage extends StatelessWidget {
     );
   }
 
-  Widget _incomeOutcome() {
+  Widget _incomeOutcome({double? income, double? outcome, double? difference}) {
     return PhysicalModel(
       color: Colors.transparent,
       elevation: 4,
@@ -205,7 +224,7 @@ class DompetDetailPage extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        'Rp500.000',
+                        'Rp${FormatDecimal.format(income ?? 0)}',
                         style: StyleConstant.bodyBoldStyle.copyWith(color: blue),
                       )
                     ],
@@ -234,7 +253,7 @@ class DompetDetailPage extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        'Rp82.000',
+                        'Rp${FormatDecimal.format(outcome ?? 0)}',
                         style: StyleConstant.bodyBoldStyle.copyWith(color: blue),
                       )
                     ],
@@ -260,8 +279,10 @@ class DompetDetailPage extends StatelessWidget {
                   style: StyleConstant.bodyBoldStyle.copyWith(color: blue),
                   children: [
                     TextSpan(
-                      text: ' Rp418.000',
-                      style: StyleConstant.bodyBoldStyle.copyWith(color: green),
+                      text: ' Rp${FormatDecimal.format(difference ?? 0)}',
+                      style: StyleConstant.bodyBoldStyle.copyWith(
+                        color: (difference ?? 0) > 0 ? green : Colors.red,
+                      ),
                     ),
                   ],
                 ),

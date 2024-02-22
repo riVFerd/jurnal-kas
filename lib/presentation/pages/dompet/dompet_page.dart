@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import 'package:pretest/presentation/widgets/horizontal_divider_with_text.dart';
 
 import '../../bloc/dompet/dompet_cubit.dart';
+import '../../bloc/transaction/transaction_cubit.dart';
 import '../../constants/color_constant.dart';
 import '../../widgets/button_with_asset.dart';
 import '../../widgets/rounded_divider.dart';
@@ -67,26 +68,32 @@ class DompetPage extends StatelessWidget {
                   constraints: BoxConstraints(
                     maxHeight: MediaQuery.of(context).size.height / 2,
                   ),
-                  child: BlocBuilder<DompetCubit, DompetState>(
+                  child: BlocBuilder<TransactionCubit, TransactionState>(
                     builder: (context, state) {
-                      switch (state) {
-                        case DompetLoaded _:
-                          final dompetList = state.dompetList;
-                          return ListView.builder(
-                            itemCount: dompetList.length,
-                            itemBuilder: (context, index) {
-                              return DompetCard(
-                                width: MediaQuery.of(context).size.width - 16,
-                                dompet: dompetList[index],
+                      // get the updated wallet
+                      BlocProvider.of<DompetCubit>(context).getDompetList();
+                      return BlocBuilder<DompetCubit, DompetState>(
+                        builder: (context, state) {
+                          switch (state) {
+                            case DompetLoaded _:
+                              final dompetList = state.dompetList;
+                              return ListView.builder(
+                                itemCount: dompetList.length,
+                                itemBuilder: (context, index) {
+                                  return DompetCard(
+                                    width: MediaQuery.of(context).size.width - 16,
+                                    dompet: dompetList[index],
+                                  );
+                                },
                               );
-                            },
-                          );
-                        case DompetInitial():
-                          BlocProvider.of<DompetCubit>(context).getDompetList();
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                      }
+                            case DompetInitial():
+                              BlocProvider.of<DompetCubit>(context).getDompetList();
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                          }
+                        },
+                      );
                     },
                   ),
                 ),

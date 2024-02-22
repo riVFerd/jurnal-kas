@@ -23,7 +23,7 @@ class DompetModel extends Dompet {
       id: json['id'],
       iconPath: json['iconPath'],
       name: json['name'],
-      saldo: json['saldo'],
+      saldo: double.parse(json['saldo'].toString()),
     );
   }
 }

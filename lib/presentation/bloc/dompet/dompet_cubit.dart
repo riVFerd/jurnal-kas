@@ -10,12 +10,12 @@ class DompetCubit extends Cubit<DompetState> {
   final DompetRepository _dompetRepository;
   DompetCubit(this._dompetRepository) : super(DompetInitial());
 
-  void getDompetList() async {
+  Future<void> getDompetList() async {
     final dompetList = await _dompetRepository.getDompetList();
     emit(DompetLoaded(dompetList));
   }
 
-  void createDompet(Dompet dompet) async {
+  Future<void> createDompet(Dompet dompet) async {
     await _dompetRepository.createDompet(dompet);
     getDompetList();
   }

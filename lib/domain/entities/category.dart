@@ -33,6 +33,8 @@ abstract class Category {
         return 'assets/icons/categories/pendidikan.png';
       case CategoryIcon.rumah:
         return 'assets/icons/categories/rumah.png';
+      case CategoryIcon.gaji:
+        return 'assets/icons/categories/gaji.png';
     }
   }
 }
@@ -47,4 +49,5 @@ enum CategoryIcon {
   makanan,
   pendidikan,
   rumah,
+  gaji,
 }

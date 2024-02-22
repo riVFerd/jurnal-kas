@@ -1,4 +1,6 @@
-abstract class Dompet {
+import 'package:equatable/equatable.dart';
+
+abstract class Dompet extends Equatable {
   final String id;
   final String iconPath;
   final String name;
@@ -12,6 +14,9 @@ abstract class Dompet {
   });
 
   Map<String, dynamic> toJson();
+
+  @override
+  List<Object> get props => [id, name, iconPath, saldo];
 
   static String icons(DompetIcon icon) {
     switch (icon) {
