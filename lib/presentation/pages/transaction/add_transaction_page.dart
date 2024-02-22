@@ -282,7 +282,11 @@ class _AddTransactionPageState extends State<AddTransactionPage>
                                 name: _nameController.text,
                               ),
                             );
-                            Navigator.pop(context);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Transaksi berhasil ditambahkan'),
+                              ),
+                            );
                           },
                         ),
                       ],
