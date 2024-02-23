@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pretest/domain/entities/category.dart';
 import 'package:pretest/domain/repositories/category_repository.dart';
 
@@ -13,6 +14,7 @@ class CategoryRepositoryImpl implements CategoryRepository {
       iconPath: category.iconPath,
       name: category.name,
       description: category.description,
+      userId: category.userId,
     );
     document.set(categoryModel.toJson());
     return Future.value(categoryModel);
@@ -32,7 +34,12 @@ class CategoryRepositoryImpl implements CategoryRepository {
 
   @override
   Future<List<CategoryModel>> getCategoryList() {
-    return FirebaseFirestore.instance.collection('category').get().then(
+    final user = FirebaseAuth.instance.currentUser;
+    return FirebaseFirestore.instance
+        .collection('category')
+        .where('userId', isEqualTo: user?.uid)
+        .get()
+        .then(
           (value) =>
               value.docs.map((e) => CategoryModel.fromJson(e.data())).toList(growable: false),
         );

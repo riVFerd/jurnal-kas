@@ -6,6 +6,7 @@ class DompetModel extends Dompet {
     required super.name,
     required super.iconPath,
     required super.saldo,
+    required super.userId,
   });
 
   @override
@@ -15,6 +16,7 @@ class DompetModel extends Dompet {
       'iconPath': iconPath,
       'name': name,
       'saldo': saldo,
+      'userId': userId,
     };
   }
 
@@ -24,6 +26,7 @@ class DompetModel extends Dompet {
       iconPath: json['iconPath'],
       name: json['name'],
       saldo: double.parse(json['saldo'].toString()),
+      userId: json['userId'],
     );
   }
 }

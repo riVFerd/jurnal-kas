@@ -5,6 +5,7 @@ import 'package:pretest/data/models/category_model.dart';
 import 'package:pretest/domain/entities/category.dart';
 import 'package:pretest/presentation/bloc/category/category_cubit.dart';
 
+import '../../bloc/user/user_cubit.dart';
 import '../../constants/color_constant.dart';
 import '../../constants/style_constant.dart';
 import '../../widgets/button_with_asset.dart';
@@ -125,12 +126,14 @@ class _AddCategoryModalState extends State<AddCategoryModal> {
                   setState(() {});
                   return;
                 }
+                final user = (BlocProvider.of<UserCubit>(context).state as UserAuthenticated).user;
                 BlocProvider.of<CategoryCubit>(context).createCategory(
                   CategoryModel(
                     id: '',
                     name: nameController.text,
                     description: descriptionController.text,
                     iconPath: Category.icons(selectedIcon),
+                    userId: user.id,
                   ),
                 );
                 Navigator.pop(context);

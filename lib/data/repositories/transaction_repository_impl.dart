@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pretest/domain/entities/transaction.dart';
 
 import '../../domain/repositories/transaction_repository.dart';
@@ -16,6 +17,7 @@ class TransactionRepositoryImpl implements TransactionRepository {
       date: transaction.date,
       dompetId: transaction.dompetId,
       type: transaction.type,
+      userId: transaction.userId,
     );
     document.set(transactionModel.toJson());
 
@@ -47,8 +49,10 @@ class TransactionRepositoryImpl implements TransactionRepository {
 
   @override
   Future<List<TransactionModel>> getTransactionList() {
+    final user = FirebaseAuth.instance.currentUser;
     return FirebaseFirestore.instance
         .collection('transaction')
+        .where('userId', isEqualTo: user?.uid)
         .orderBy('date', descending: true)
         .get()
         .then(
@@ -68,6 +72,7 @@ class TransactionRepositoryImpl implements TransactionRepository {
       date: transaction.date,
       dompetId: transaction.dompetId,
       type: transaction.type,
+      userId: transaction.userId,
     );
     document.set(transactionModel.toJson());
     return Future.value(transactionModel);

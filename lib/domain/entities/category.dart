@@ -3,12 +3,14 @@ abstract class Category {
   final String iconPath;
   final String name;
   final String description;
+  final String userId;
 
   const Category({
     required this.id,
     required this.name,
     required this.iconPath,
     required this.description,
+    required this.userId,
   });
 
   Map<String, dynamic> toJson();

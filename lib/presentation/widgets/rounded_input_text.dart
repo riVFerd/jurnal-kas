@@ -4,11 +4,16 @@ import '../constants/color_constant.dart';
 
 class RoundedInputText extends StatelessWidget {
   final String hintText;
-  const RoundedInputText({super.key, required this.hintText});
+  final TextEditingController? controller;
+  final bool obscureText;
+  const RoundedInputText(
+      {super.key, required this.hintText, this.controller, this.obscureText = false});
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      controller: controller,
+      obscureText: obscureText,
       decoration: InputDecoration(
         filled: true,
         fillColor: const Color(0xFFF1F4FF),

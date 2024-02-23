@@ -5,12 +5,14 @@ abstract class Dompet extends Equatable {
   final String iconPath;
   final String name;
   final double saldo;
+  final String userId;
 
   const Dompet({
     required this.id,
     required this.name,
     required this.iconPath,
     required this.saldo,
+    required this.userId,
   });
 
   Map<String, dynamic> toJson();

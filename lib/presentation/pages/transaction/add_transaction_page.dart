@@ -12,6 +12,7 @@ import '../../../domain/entities/transaction.dart';
 import '../../bloc/category/category_cubit.dart';
 import '../../bloc/dompet/dompet_cubit.dart';
 import '../../bloc/transaction/transaction_cubit.dart';
+import '../../bloc/user/user_cubit.dart';
 import '../../constants/color_constant.dart';
 import '../../widgets/card_button.dart';
 import '../../widgets/rounded_divider.dart';
@@ -84,6 +85,7 @@ class _AddTransactionPageState extends State<AddTransactionPage>
       );
       return;
     }
+    final user = (BlocProvider.of<UserCubit>(context).state as UserAuthenticated).user;
     BlocProvider.of<TransactionCubit>(context).createTransaction(
       TransactionModel(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
@@ -93,6 +95,7 @@ class _AddTransactionPageState extends State<AddTransactionPage>
         amount: double.parse(_nominalController.text),
         date: _selectedDate,
         name: _nameController.text,
+        userId: user.id,
       ),
     );
     ScaffoldMessenger.of(context).showSnackBar(

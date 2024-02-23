@@ -30,10 +30,15 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView(
-        allowImplicitScrolling: true,
         onPageChanged: _onItemTapped,
         controller: _pageController,
         children: const [

@@ -19,4 +19,8 @@ class TransactionCubit extends Cubit<TransactionState> {
     await _transactionRepository.createTransaction(transaction);
     getTransactionList();
   }
+
+  void resetState() {
+    emit(TransactionInitial());
+  }
 }
