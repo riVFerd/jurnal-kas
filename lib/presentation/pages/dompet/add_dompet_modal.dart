@@ -5,6 +5,7 @@ import 'package:gap/gap.dart';
 import '../../../data/models/dompet_model.dart';
 import '../../../domain/entities/dompet.dart';
 import '../../bloc/dompet/dompet_cubit.dart';
+import '../../bloc/user/user_cubit.dart';
 import '../../constants/color_constant.dart';
 import '../../constants/style_constant.dart';
 import '../../widgets/button_with_asset.dart';
@@ -126,12 +127,14 @@ class _AddDompetModalState extends State<AddDompetModal> {
                   setState(() {});
                   return;
                 }
+                final user = (BlocProvider.of<UserCubit>(context).state as UserAuthenticated).user;
                 BlocProvider.of<DompetCubit>(context).createDompet(
                   DompetModel(
                     id: DateTime.now().toString(),
                     name: nameController.text,
                     iconPath: Dompet.icons(selectedIcon),
                     saldo: double.parse(saldoController.text),
+                    userId: user.id,
                   ),
                 );
                 Navigator.pop(context);

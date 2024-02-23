@@ -24,8 +24,10 @@ class _SignupPageState extends State<SignupPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  bool _isLoading = false;
 
-  void _onSubmit() {
+  Future<void> _onSubmit() async {
+    if (_isLoading) return;
     final email = _emailController.text;
     final password = _passwordController.text;
     final confirmPassword = _confirmPasswordController.text;
@@ -47,78 +49,95 @@ class _SignupPageState extends State<SignupPage> {
       );
       return;
     }
-    BlocProvider.of<UserCubit>(context).createUserWithEmailAndPassword(email, password);
+    setState(() => _isLoading = true);
+    await BlocProvider.of<UserCubit>(context).createUserWithEmailAndPassword(email, password);
+    setState(() => _isLoading = false);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            height: MediaQuery.of(context).size.height,
-            constraints: screenHeightConstraint,
-            padding: screenPadding,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Text(
-                  'Daftar',
-                  style: StyleConstant.titleStyle,
-                ),
-                Text(
-                  'Yuk daftar dulu disini, biar bisa nyobain fitur-fitur kami!',
-                  style: StyleConstant.bodyBoldStyle,
-                  textAlign: TextAlign.center,
-                ),
-                RoundedInputText(
-                  hintText: 'Email',
-                  controller: _emailController,
-                ),
-                RoundedInputText(
-                  hintText: 'Password',
-                  controller: _passwordController,
-                  obscureText: true,
-                ),
-                RoundedInputText(
-                  hintText: 'Konfirmasi Password',
-                  controller: _confirmPasswordController,
-                  obscureText: true,
-                ),
-                RoundedRectangleButton(
-                  onPressed: _onSubmit,
-                  label: 'Daftar',
-                  backgroundColor: blue,
-                ),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
-                    },
-                    child: const Text(
-                      'Sudah punya akun? Masuk',
-                      style: StyleConstant.textButtonStyle,
+      body: Stack(
+        children: [
+          SafeArea(
+            child: SingleChildScrollView(
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                constraints: screenHeightConstraint,
+                padding: screenPadding,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      'Daftar',
+                      style: StyleConstant.titleStyle,
                     ),
-                  ),
+                    Text(
+                      'Yuk daftar dulu disini, biar bisa nyobain fitur-fitur kami!',
+                      style: StyleConstant.bodyBoldStyle,
+                      textAlign: TextAlign.center,
+                    ),
+                    RoundedInputText(
+                      hintText: 'Email',
+                      controller: _emailController,
+                    ),
+                    RoundedInputText(
+                      hintText: 'Password',
+                      controller: _passwordController,
+                      obscureText: true,
+                    ),
+                    RoundedInputText(
+                      hintText: 'Konfirmasi Password',
+                      controller: _confirmPasswordController,
+                      obscureText: true,
+                    ),
+                    RoundedRectangleButton(
+                      onPressed: _onSubmit,
+                      label: 'Daftar',
+                      backgroundColor: blue,
+                    ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pushReplacementNamed(LoginPage.routeName);
+                        },
+                        child: const Text(
+                          'Sudah punya akun? Masuk',
+                          style: StyleConstant.textButtonStyle,
+                        ),
+                      ),
+                    ),
+                    const HorizontalDividerWithText(text: 'atau'),
+                    ButtonWithAsset(
+                      onPressed: () {},
+                      buttonText: 'Continue with Google',
+                      iconAsset: 'assets/icons/google.png',
+                      backgroundColor: Colors.white,
+                      showShadow: false,
+                      borderSide: const BorderSide(
+                        color: Colors.black,
+                        width: 2,
+                      ),
+                      color: Colors.black,
+                    ),
+                  ],
                 ),
-                const HorizontalDividerWithText(text: 'atau'),
-                ButtonWithAsset(
-                  onPressed: () {},
-                  buttonText: 'Continue with Google',
-                  iconAsset: 'assets/icons/google.png',
-                  backgroundColor: Colors.white,
-                  showShadow: false,
-                  borderSide: const BorderSide(
-                    color: Colors.black,
-                    width: 2,
-                  ),
-                  color: Colors.black,
-                ),
-              ],
+              ),
             ),
           ),
-        ),
+          Visibility(
+            visible: _isLoading,
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              color: Colors.black.withOpacity(0.5),
+              child: const Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

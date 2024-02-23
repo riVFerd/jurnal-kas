@@ -19,4 +19,8 @@ class CategoryCubit extends Cubit<CategoryState> {
     await _categoryRepository.createCategory(category);
     getCategoryList();
   }
+
+  void resetState() {
+    emit(CategoryInitial());
+  }
 }

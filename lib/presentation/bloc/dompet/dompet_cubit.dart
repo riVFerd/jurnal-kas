@@ -19,4 +19,8 @@ class DompetCubit extends Cubit<DompetState> {
     await _dompetRepository.createDompet(dompet);
     getDompetList();
   }
+
+  void resetState() {
+    emit(DompetInitial());
+  }
 }

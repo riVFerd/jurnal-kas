@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pretest/data/models/dompet_model.dart';
 import 'package:pretest/domain/entities/dompet.dart';
 import 'package:pretest/domain/repositories/dompet_repository.dart';
@@ -12,6 +13,7 @@ class DompetRepositoryImpl implements DompetRepository {
       iconPath: dompet.iconPath,
       name: dompet.name,
       saldo: dompet.saldo,
+      userId: dompet.userId,
     );
     document.set(dompetModel.toJson());
     return Future.value(dompetModel);
@@ -31,7 +33,12 @@ class DompetRepositoryImpl implements DompetRepository {
 
   @override
   Future<List<DompetModel>> getDompetList() {
-    return FirebaseFirestore.instance.collection('dompet').get().then(
+    final user = FirebaseAuth.instance.currentUser;
+    return FirebaseFirestore.instance
+        .collection('dompet')
+        .where('userId', isEqualTo: user?.uid)
+        .get()
+        .then(
           (value) => value.docs.map((e) => DompetModel.fromJson(e.data())).toList(growable: false),
         );
   }

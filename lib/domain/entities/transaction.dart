@@ -6,6 +6,7 @@ abstract class Transaction {
   final TransactionType type;
   final String categoryId;
   final String dompetId;
+  final String userId;
 
   const Transaction({
     required this.id,
@@ -15,6 +16,7 @@ abstract class Transaction {
     required this.type,
     required this.categoryId,
     required this.dompetId,
+    required this.userId,
   });
 
   Map<String, dynamic> toJson();

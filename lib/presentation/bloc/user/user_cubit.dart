@@ -15,7 +15,7 @@ class UserCubit extends Cubit<UserState> {
     });
   }
 
-  void createUserWithEmailAndPassword(String email, String password) async {
+  Future<void> createUserWithEmailAndPassword(String email, String password) async {
     if (state is UserAuthenticated) return emit(const UserError('User already login'));
     try {
       final user = await _userRepository.createUserWithEmailAndPassword(email, password);
@@ -25,7 +25,7 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
-  void signInWithEmailAndPassword(String email, String password) async {
+  Future<void> signInWithEmailAndPassword(String email, String password) async {
     if (state is UserAuthenticated) return emit(const UserError('User already login'));
     try {
       final user = await _userRepository.signInWithEmailAndPassword(email, password);
