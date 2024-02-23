@@ -40,7 +40,7 @@ class NumpadWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _buildNumberButton('.'),
+            _buildNumberButton('.', disabled: true),
             _buildNumberButton('0'),
             _buildDeleteButton(),
           ],

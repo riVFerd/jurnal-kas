@@ -57,6 +57,51 @@ class _AddTransactionPageState extends State<AddTransactionPage>
     super.dispose();
   }
 
+  void _onSubmit(BuildContext context) {
+    if (_selectedCategory == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Pilih kategori terlebih dahulu'),
+        ),
+      );
+      _tabController.animateTo(1);
+      return;
+    }
+    if (_selectedDompet == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Pilih dompet terlebih dahulu'),
+        ),
+      );
+      _tabController.animateTo(0);
+      return;
+    }
+    if (_nominalController.text.isEmpty || _nominalController.text.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Keterangan dan nominal tidak boleh kosong'),
+        ),
+      );
+      return;
+    }
+    BlocProvider.of<TransactionCubit>(context).createTransaction(
+      TransactionModel(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        type: _transactionType,
+        categoryId: _selectedCategory!.id,
+        dompetId: _selectedDompet!.id,
+        amount: double.parse(_nominalController.text),
+        date: _selectedDate,
+        name: _nameController.text,
+      ),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Transaksi berhasil ditambahkan'),
+      ),
+    );
+  }
+
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -222,6 +267,7 @@ class _AddTransactionPageState extends State<AddTransactionPage>
                     const Gap(16),
                     TextField(
                       controller: _nominalController,
+                      readOnly: true,
                       style: StyleConstant.bodyPoppinsStyle.copyWith(color: blue),
                       decoration: StyleConstant.underlinInputDecoration.copyWith(
                         label: const Text('Nominal'),
@@ -270,24 +316,7 @@ class _AddTransactionPageState extends State<AddTransactionPage>
                             color: blue,
                             size: 32,
                           ),
-                          onPressed: () {
-                            BlocProvider.of<TransactionCubit>(context).createTransaction(
-                              TransactionModel(
-                                id: DateTime.now().millisecondsSinceEpoch.toString(),
-                                type: _transactionType,
-                                categoryId: _selectedCategory!.id,
-                                dompetId: _selectedDompet!.id,
-                                amount: double.parse(_nominalController.text),
-                                date: _selectedDate,
-                                name: _nameController.text,
-                              ),
-                            );
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Transaksi berhasil ditambahkan'),
-                              ),
-                            );
-                          },
+                          onPressed: () => _onSubmit(context),
                         ),
                       ],
                     ),
