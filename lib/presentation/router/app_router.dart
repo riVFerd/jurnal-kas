@@ -10,6 +10,7 @@ import 'package:pretest/presentation/pages/transaction/add_transaction_page.dart
 
 import '../../domain/entities/category.dart';
 import '../../domain/entities/dompet.dart';
+import '../pages/search/search_page.dart';
 
 class AppRouter {
   static PageRoute onGenerateRoute(RouteSettings settings) {
@@ -40,6 +41,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const AddTransactionPage());
       case DashboardPage.routeName:
         return MaterialPageRoute(builder: (_) => const DashboardPage());
+      case SearchPage.routeName:
+        return MaterialPageRoute(builder: (_) => const SearchPage());
       case '/':
         return MaterialPageRoute(builder: (_) => const LoginPage());
       default:

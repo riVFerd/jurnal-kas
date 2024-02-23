@@ -7,6 +7,7 @@ import '../../constants/color_constant.dart';
 import '../../widgets/rounded_divider.dart';
 import '../category/category_page.dart';
 import '../dompet/dompet_page.dart';
+import '../search/search_page.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
@@ -94,7 +95,7 @@ final listMenu = [
   _Menu(
     icon: 'assets/icons/search.png',
     title: 'Cari',
-    callback: (_) {},
+    callback: (context) => Navigator.of(context).pushNamed(SearchPage.routeName),
   ),
   _Menu(
     icon: 'assets/icons/reminder.png',
