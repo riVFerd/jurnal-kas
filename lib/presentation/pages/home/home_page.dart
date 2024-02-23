@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:pretest/common/datetime_extentions.dart';
 import 'package:pretest/common/format_decimal.dart';
 import 'package:pretest/presentation/constants/style_constant.dart';
+import 'package:pretest/presentation/pages/login/login_page.dart';
 import 'package:pretest/presentation/widgets/rounded_divider.dart';
 import 'package:pretest/presentation/widgets/selectable_tab.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -11,6 +12,7 @@ import 'package:table_calendar/table_calendar.dart';
 import '../../bloc/category/category_cubit.dart';
 import '../../bloc/dompet/dompet_cubit.dart';
 import '../../bloc/transaction/transaction_cubit.dart';
+import '../../bloc/user/user_cubit.dart';
 import '../../constants/color_constant.dart';
 import '../../widgets/transaction_card.dart';
 
@@ -74,7 +76,17 @@ class _HomePageState extends State<HomePage> {
                               ],
                             ),
                             IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                // for now used for log out
+                                BlocProvider.of<UserCubit>(context).signOut();
+                                Navigator.pushReplacementNamed(context, LoginPage.routeName);
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Berhasil keluar'),
+                                    backgroundColor: Colors.red,
+                                  ),
+                                );
+                              },
                               icon: const Icon(
                                 Icons.settings_outlined,
                                 color: Colors.white,
