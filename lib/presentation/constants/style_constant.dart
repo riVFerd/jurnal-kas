@@ -18,19 +18,19 @@ class StyleConstant {
   static final bodyBoldStyle = GoogleFonts.poppins(
     fontSize: 14,
     fontWeight: FontWeight.w700,
-    color: Colors.black,
+    color: blue,
   );
 
   static final bodyStyle = GoogleFonts.raleway(
     fontSize: 12,
     fontWeight: FontWeight.w600,
-    color: Colors.black,
+    color: blue,
   );
 
   static final bodyPoppinsStyle = GoogleFonts.poppins(
     fontSize: 12,
     fontWeight: FontWeight.w600,
-    color: Colors.black,
+    color: blue,
   );
 
   static const buttonStyle = TextStyle(

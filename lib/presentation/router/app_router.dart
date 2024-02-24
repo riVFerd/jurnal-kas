@@ -6,10 +6,13 @@ import 'package:pretest/presentation/pages/dompet/dompet_detail_page.dart';
 import 'package:pretest/presentation/pages/dompet/dompet_page.dart';
 import 'package:pretest/presentation/pages/login/login_page.dart';
 import 'package:pretest/presentation/pages/login/signup_page.dart';
+import 'package:pretest/presentation/pages/profile/profile_edit_page.dart';
+import 'package:pretest/presentation/pages/profile/profile_page.dart';
 import 'package:pretest/presentation/pages/transaction/add_transaction_page.dart';
 
 import '../../domain/entities/category.dart';
 import '../../domain/entities/dompet.dart';
+import '../../domain/entities/user.dart';
 import '../pages/search/search_page.dart';
 
 class AppRouter {
@@ -43,6 +46,11 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const DashboardPage());
       case SearchPage.routeName:
         return MaterialPageRoute(builder: (_) => const SearchPage());
+      case ProfilePage.routeName:
+        return MaterialPageRoute(builder: (_) => const ProfilePage());
+      case ProfileEditPage.routeName:
+        final user = settings.arguments as User;
+        return MaterialPageRoute(builder: (_) => ProfileEditPage(user: user));
       case '/':
         return MaterialPageRoute(builder: (_) => const LoginPage());
       default:

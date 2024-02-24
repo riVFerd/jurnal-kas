@@ -35,6 +35,16 @@ class UserCubit extends Cubit<UserState> {
     }
   }
 
+  Future<void> updateUser(User user) async {
+    if (state is! UserAuthenticated) return emit(const UserError('User not login'));
+    try {
+      await _userRepository.updateUser(user);
+      emit(UserAuthenticated(user));
+    } on Exception catch (e) {
+      emit(UserError(e.toString()));
+    }
+  }
+
   void signOut() async {
     await _userRepository.signOut();
     emit(UserInitial());

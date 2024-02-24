@@ -7,6 +7,7 @@ import '../../constants/color_constant.dart';
 import '../../widgets/rounded_divider.dart';
 import '../category/category_page.dart';
 import '../dompet/dompet_page.dart';
+import '../profile/profile_page.dart';
 import '../search/search_page.dart';
 
 class SettingPage extends StatelessWidget {
@@ -80,7 +81,7 @@ final listMenu = [
   _Menu(
     icon: 'assets/icons/profile.png',
     title: 'Profile',
-    callback: (_) {},
+    callback: (context) => Navigator.of(context).pushNamed(ProfilePage.routeName),
   ),
   _Menu(
     icon: 'assets/icons/book.png',

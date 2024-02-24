@@ -17,7 +17,7 @@ class UserRepositoryImpl implements UserRepository {
       final user = UserModel(
         id: credential.user!.uid,
         email: email,
-        username: email.split('@').first,
+        username: '@${email.split('@').first}',
       );
       FirebaseFirestore.instance.collection('users').doc(user.id).set(user.toJson());
 
@@ -56,8 +56,11 @@ class UserRepositoryImpl implements UserRepository {
 
   @override
   Future<void> updateUser(user) {
-    // TODO: implement updateUser
-    throw UnimplementedError();
+    try {
+      return FirebaseFirestore.instance.collection('users').doc(user.id).update(user.toJson());
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
