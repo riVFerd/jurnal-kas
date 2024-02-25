@@ -16,6 +16,7 @@ class SelectableTab extends StatelessWidget {
   final double selectedSize;
   final double iconScale;
   final double iconSize;
+  final VoidCallback? onLongPress;
 
   const SelectableTab({
     super.key,
@@ -32,12 +33,14 @@ class SelectableTab extends StatelessWidget {
     this.iconSize = 32,
     this.backgroundColor = Colors.transparent,
     this.textColor = blue,
+    this.onLongPress,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: onTap,
+      onLongPress: onLongPress,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
         decoration: BoxDecoration(

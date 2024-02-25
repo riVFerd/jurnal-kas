@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:pretest/common/datetime_extentions.dart';
 import 'package:pretest/common/format_decimal.dart';
-import 'package:pretest/domain/entities/transaction.dart';
+import 'package:pretest/data/models/transaction_model.dart';
 import 'package:pretest/presentation/constants/style_constant.dart';
 
 import '../../../domain/entities/dompet.dart';

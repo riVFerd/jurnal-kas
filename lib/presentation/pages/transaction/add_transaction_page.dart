@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:pretest/common/datetime_extentions.dart';
 import 'package:pretest/domain/entities/dompet.dart';
+import 'package:pretest/presentation/constants/size_constant.dart';
 import 'package:pretest/presentation/constants/style_constant.dart';
 import 'package:pretest/presentation/widgets/numpad_widget.dart';
 
@@ -122,7 +123,7 @@ class _AddTransactionPageState extends State<AddTransactionPage>
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
+          padding: screenPadding,
           primary: true,
           child: Column(
             children: [
@@ -158,7 +159,7 @@ class _AddTransactionPageState extends State<AddTransactionPage>
               ),
               const Gap(24),
               SizedBox(
-                height: MediaQuery.of(context).size.height / 2.5 - 32,
+                height: MediaQuery.of(context).size.height / 4,
                 child: TabBarView(
                   controller: _tabController,
                   children: [

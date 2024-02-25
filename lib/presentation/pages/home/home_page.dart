@@ -14,6 +14,7 @@ import '../../bloc/dompet/dompet_cubit.dart';
 import '../../bloc/transaction/transaction_cubit.dart';
 import '../../constants/color_constant.dart';
 import '../../widgets/transaction_card.dart';
+import '../kalender/kalender_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -59,6 +60,8 @@ class _HomePageState extends State<HomePage> {
                                   selectedSize: 120,
                                   iconScale: 1,
                                   onTap: () => setState(() => _isCalendarSelected = true),
+                                  onLongPress: () =>
+                                      Navigator.of(context).pushNamed(KalenderPage.routeName),
                                 ),
                                 SelectableTab(
                                   isSelected: !_isCalendarSelected,
@@ -170,7 +173,10 @@ class _HomePageState extends State<HomePage> {
                               Visibility(
                                 visible: _isCalendarSelected,
                                 child: Padding(
-                                  padding: const EdgeInsets.all(16.0),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0,
+                                    vertical: 4,
+                                  ),
                                   child: TableCalendar(
                                     rowHeight: 36,
                                     headerStyle: const HeaderStyle(

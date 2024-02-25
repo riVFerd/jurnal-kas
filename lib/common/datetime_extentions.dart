@@ -1,6 +1,10 @@
 extension DateTimeExtensions on DateTime {
   bool isSameDay(DateTime other) {
-    return this.year == other.year && this.month == other.month && this.day == other.day;
+    return year == other.year && month == other.month && day == other.day;
+  }
+
+  bool isSameMonthYear(DateTime other) {
+    return year == other.year && month == other.month;
   }
 
   String toFormattedString() {
@@ -18,6 +22,28 @@ extension DateTimeExtensions on DateTime {
       "November",
       "Desember",
     ];
-    return "${this.day} ${months[this.month - 1]} ${this.year}";
+    return "${day} ${months[month - 1]} ${year}";
+  }
+
+  String get monthInString {
+    const months = [
+      "Januari",
+      "Februari",
+      "Maret",
+      "April",
+      "Mei",
+      "Juni",
+      "Juli",
+      "Agustus",
+      "September",
+      "Oktober",
+      "November",
+      "Desember",
+    ];
+    return months[month - 1];
+  }
+
+  String get yearInString {
+    return "$year";
   }
 }

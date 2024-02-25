@@ -4,6 +4,7 @@ import 'package:pretest/presentation/pages/category/category_page.dart';
 import 'package:pretest/presentation/pages/dashboard/dashboard_page.dart';
 import 'package:pretest/presentation/pages/dompet/dompet_detail_page.dart';
 import 'package:pretest/presentation/pages/dompet/dompet_page.dart';
+import 'package:pretest/presentation/pages/kalender/kalender_page.dart';
 import 'package:pretest/presentation/pages/login/login_page.dart';
 import 'package:pretest/presentation/pages/login/signup_page.dart';
 import 'package:pretest/presentation/pages/profile/profile_edit_page.dart';
@@ -51,6 +52,8 @@ class AppRouter {
       case ProfileEditPage.routeName:
         final user = settings.arguments as User;
         return MaterialPageRoute(builder: (_) => ProfileEditPage(user: user));
+      case KalenderPage.routeName:
+        return MaterialPageRoute(builder: (_) => const KalenderPage());
       case '/':
         return MaterialPageRoute(builder: (_) => const LoginPage());
       default:
