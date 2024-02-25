@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pretest/common/datetime_extentions.dart';
 
+import '../../domain/entities/category.dart';
 import '../../domain/entities/transaction.dart';
 
 class TransactionModel extends Transaction {
@@ -144,5 +145,40 @@ extension TransactionsExtension on List<Transaction> {
         dateRange.start.subtract(const Duration(days: 1)).isBefore(transaction.date) &&
         dateRange.end.add(const Duration(days: 1)).isAfter(transaction.date)).toList()
       ..sort((a, b) => b.date.compareTo(a.date));
+  }
+
+  List<Transaction> sortedByCategory(String categoryId, {bool? isIncome}) {
+    if (isIncome == null) {
+      return where((transaction) => transaction.categoryId == categoryId).toList()
+        ..sort((a, b) => b.date.compareTo(a.date));
+    } else {
+      return where((transaction) =>
+              transaction.categoryId == categoryId &&
+              transaction.type == (isIncome ? TransactionType.income : TransactionType.expense))
+          .toList()
+        ..sort((a, b) => b.date.compareTo(a.date));
+    }
+  }
+
+  List<Transaction> groupedByCategory(List<Category> categories, {required bool isIncome}) {
+    final groupedTransaction = <Transaction>[];
+    for (final category in categories) {
+      final transactions = sortedByCategory(category.id, isIncome: isIncome);
+      if (transactions.isNotEmpty && transactions.totalAmount != 0) {
+        groupedTransaction.add(
+          TransactionModel(
+            id: '',
+            name: category.name,
+            amount: transactions.totalAmount,
+            date: transactions.first.date,
+            type: transactions.first.type,
+            categoryId: category.id,
+            dompetId: transactions.first.dompetId,
+            userId: transactions.first.userId,
+          ),
+        );
+      }
+    }
+    return groupedTransaction;
   }
 }

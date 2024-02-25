@@ -4,6 +4,7 @@ import 'package:gap/gap.dart';
 import 'package:pretest/common/datetime_extentions.dart';
 import 'package:pretest/common/format_decimal.dart';
 import 'package:pretest/presentation/constants/style_constant.dart';
+import 'package:pretest/presentation/pages/keuangan/keuangan_page.dart';
 import 'package:pretest/presentation/pages/profile/profile_page.dart';
 import 'package:pretest/presentation/widgets/rounded_divider.dart';
 import 'package:pretest/presentation/widgets/selectable_tab.dart';
@@ -60,8 +61,9 @@ class _HomePageState extends State<HomePage> {
                                   selectedSize: 120,
                                   iconScale: 1,
                                   onTap: () => setState(() => _isCalendarSelected = true),
-                                  onLongPress: () =>
-                                      Navigator.of(context).pushNamed(KalenderPage.routeName),
+                                  onLongPress: () {
+                                    Navigator.of(context).pushNamed(KalenderPage.routeName);
+                                  },
                                 ),
                                 SelectableTab(
                                   isSelected: !_isCalendarSelected,
@@ -74,6 +76,9 @@ class _HomePageState extends State<HomePage> {
                                   selectedSize: 120,
                                   iconScale: 1,
                                   onTap: () => setState(() => _isCalendarSelected = false),
+                                  onLongPress: () {
+                                    Navigator.of(context).pushNamed(KeuanganPage.routeName);
+                                  },
                                 ),
                               ],
                             ),
