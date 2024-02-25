@@ -5,3 +5,9 @@ class FormatDecimal {
     return NumberFormat.decimalPattern().format(value).toString().replaceAll(',', '.');
   }
 }
+
+extension FormatDecimalExtension on double {
+  String toFormattedString() {
+    return FormatDecimal.format(this);
+  }
+}

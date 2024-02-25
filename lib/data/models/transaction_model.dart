@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:pretest/common/datetime_extentions.dart';
 
 import '../../domain/entities/transaction.dart';
@@ -136,5 +137,12 @@ extension TransactionsExtension on List<Transaction> {
       );
     }
     return groupedTransaction;
+  }
+
+  List<Transaction> sortedByDateRange(DateTimeRange dateRange) {
+    return where((transaction) =>
+        dateRange.start.subtract(const Duration(days: 1)).isBefore(transaction.date) &&
+        dateRange.end.add(const Duration(days: 1)).isAfter(transaction.date)).toList()
+      ..sort((a, b) => b.date.compareTo(a.date));
   }
 }

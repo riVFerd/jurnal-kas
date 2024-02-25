@@ -13,6 +13,7 @@ import '../../constants/color_constant.dart';
 import '../../widgets/button_with_asset.dart';
 import '../../widgets/rounded_divider.dart';
 import '../../widgets/transaction_card.dart';
+import 'dompet_sorted_modal.dart';
 
 class DompetDetailPage extends StatelessWidget {
   final Dompet dompet;
@@ -42,7 +43,7 @@ class DompetDetailPage extends StatelessWidget {
                     const Spacer(),
                     ButtonWithAsset(
                       onPressed: () {},
-                      buttonText: 'Dompet',
+                      buttonText: 'Detail Dompet',
                       iconAsset: 'assets/icons/wallet_stretch.png',
                       borderRadius: 24,
                       backgroundColor: blue,
@@ -59,8 +60,24 @@ class DompetDetailPage extends StatelessWidget {
                       scale: 0.7,
                     ),
                     ElevatedButton(
-                      onPressed: () {
-                        // Your onPressed action here
+                      onPressed: () async {
+                        final dateRange = await showDateRangePicker(
+                          context: context,
+                          firstDate: DateTime(2023),
+                          lastDate: DateTime(2077),
+                        );
+                        if (dateRange != null) {
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            builder: (context) {
+                              return DompetSortedModal(
+                                dateRange: dateRange,
+                                dompet: dompet,
+                              );
+                            },
+                          );
+                        }
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.all(10),

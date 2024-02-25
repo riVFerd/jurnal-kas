@@ -9,3 +9,4 @@ const darkYellow = Color(0xFFFFC300);
 const yellow = Color(0xFFFFD60A);
 const green = Color(0xFF37A21C);
 const grey = Color(0xFF6B6B6B);
+const lightGrey = Color(0xFFE9E9E9);
