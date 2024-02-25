@@ -71,6 +71,7 @@ class _SearchPageState extends State<SearchPage> {
                 'Temukan Catatanmu',
                 style: StyleConstant.subTitleStyle,
               ),
+              const Gap(16),
               PhysicalModel(
                 color: Colors.grey,
                 elevation: 4,
@@ -117,7 +118,7 @@ class _SearchPageState extends State<SearchPage> {
                             itemCount: transactionList.length,
                             itemBuilder: (context, index) {
                               final category = categoryList.firstWhere(
-                                (category) => category.id == transactionList.first.categoryId,
+                                (category) => category.id == transactionList[index].categoryId,
                               );
                               return TransactionCard(
                                 category: category,
