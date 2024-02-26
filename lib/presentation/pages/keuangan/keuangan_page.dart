@@ -42,7 +42,13 @@ class _KeuanganPageState extends State<KeuanganPage> {
       ),
       body: BlocBuilder<DompetCubit, DompetState>(
         builder: (context, state) {
-          final dompetList = (state as DompetLoaded).dompetList;
+          if (state is! DompetLoaded) {
+            BlocProvider.of<DompetCubit>(context).getDompetList();
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          final dompetList = state.dompetList;
           final totalDompetAmount = dompetList.fold(
             0.0,
             (previousValue, dompet) => previousValue + dompet.saldo,
@@ -162,8 +168,11 @@ class _KeuanganPageState extends State<KeuanganPage> {
                               builder: (context, state) {
                                 if (state is! CategoryLoaded) {
                                   BlocProvider.of<CategoryCubit>(context).getCategoryList();
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
                                 }
-                                final categoryList = (state as CategoryLoaded).categoryList;
+                                final categoryList = state.categoryList;
                                 final transactionState = BlocProvider.of<TransactionCubit>(context)
                                     .state as TransactionLoaded;
                                 final transactionList = transactionState.transactionList

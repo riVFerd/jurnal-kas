@@ -59,7 +59,11 @@ class DompetPage extends StatelessWidget {
                       width: 2,
                     ),
                   ),
-                  child: _lineChart(),
+                  child: BlocBuilder<TransactionCubit, TransactionState>(
+                    builder: (context, state) {
+                      return _lineChart();
+                    },
+                  ),
                 ),
                 const Gap(24),
                 const HorizontalDividerWithText(text: 'detail'),
